@@ -5,19 +5,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     registroForm.addEventListener('submit', function(event) {
         event.preventDefault();
-
-        // Recolectar la información del formulario
-        const vivienda = registroForm.querySelector('#vivienda').value;
-        const fechaEntrada = registroForm.querySelector('#fechaEntrada').value;
-        const horaEntrada = registroForm.querySelector('#horaEntrada').value;
-        const fechaSalida = registroForm.querySelector('#fechaSalida').value;
-        const horaSalida = registroForm.querySelector('#horaSalida').value;
-        const horasLimpiadora = registroForm.querySelector('#horasLimpiadora').value;
+        const vivienda = registroForm.vivienda.value;
+        const fechaEntrada = registroForm.fechaEntrada.value;
+        const horaEntrada = registroForm.horaEntrada.value;
+        const fechaSalida = registroForm.fechaSalida.value;
+        const horaSalida = registroForm.horaSalida.value;
+        const horasLimpiadora = registroForm.horasLimpiadora.value;
         const extras = Array.from(registroForm.querySelectorAll('input[name="extras"]:checked'))
                             .map(checkbox => checkbox.value)
-                            .join("; "); // Usamos punto y coma para separar los extras
+                            .join(", ");
 
-        // Crear un objeto de registro
+        // Validación básica
+        if (!vivienda || (!fechaEntrada && !fechaSalida)) {
+            alert('Debe seleccionar una vivienda y al menos una fecha de entrada o salida.');
+            return;
+        }
+
         const registro = {
             vivienda,
             fechaEntrada,
@@ -28,11 +31,11 @@ document.addEventListener('DOMContentLoaded', function() {
             extras
         };
 
-        // Añadir al historial y almacenar en localStorage
         registros.push(registro);
         localStorage.setItem('registrosViviendas', JSON.stringify(registros));
         agregarRegistroAlHistorial(registro);
         registroForm.reset();
+        mostrarViviendasParaHoyYManana();
     });
 
     function agregarRegistroAlHistorial(registro) {
@@ -44,41 +47,47 @@ document.addEventListener('DOMContentLoaded', function() {
             <p><strong>Salida:</strong> ${registro.fechaSalida} a las ${registro.horaSalida}</p>
             <p><strong>Horas de Limpieza:</strong> ${registro.horasLimpiadora}</p>
             <p><strong>Extras:</strong> ${registro.extras}</p>
+            <button class="borrarBtn">Borrar</button>
         `;
         historialRegistros.appendChild(div);
-    }
-
-    document.getElementById('descargarCSV').addEventListener('click', function() {
-        descargarCSV(registros);
-    });
-
-    function descargarCSV(registros) {
-        let csvContent = "data:text/csv;charset=utf-8,\uFEFF"; // UTF-8 BOM para Excel
-        csvContent += "Vivienda,Fecha Entrada,Hora Entrada,Fecha Salida,Hora Salida,Horas Limpieza,Extras\r\n";
-
-        registros.forEach(function(reg) {
-            const row = [
-                reg.vivienda,
-                reg.fechaEntrada,
-                reg.horaEntrada,
-                reg.fechaSalida,
-                reg.horaSalida,
-                reg.horasLimpiadora,
-                reg.extras
-            ].map(field => `"${field}"`).join(','); // Envuelve cada campo en comillas dobles
-            csvContent += row + "\r\n";
+        div.querySelector('.borrarBtn').addEventListener('click', function() {
+            if (confirm('¿Está seguro de que desea eliminar este registro?')) {
+                borrarRegistro(registros.indexOf(registro));
+            }
         });
-
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement("a");
-        link.setAttribute("href", encodedUri);
-        link.setAttribute("download", "registros_viviendas.csv");
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
     }
 
-    // Cargar el historial previo al abrir la página
-    registros.forEach(registro => agregarRegistroAlHistorial(registro));
+    function borrarRegistro(indice) {
+        registros.splice(indice, 1);
+        localStorage.setItem('registrosViviendas', JSON.stringify(registros));
+        historialRegistros.children[indice].remove();
+        mostrarViviendasParaHoyYManana();
+    }
+
+    function mostrarViviendasParaHoyYManana() {
+        const viviendasHoy = document.getElementById('viviendasHoy');
+        const viviendasManana = document.getElementById('viviendasManana');
+        const hoy = new Date();
+        const manana = new Date(hoy.getTime() + (24 * 60 * 60 * 1000));
+        hoy.setHours(0, 0, 0, 0);
+        manana.setHours(0, 0, 0, 0);
+
+        viviendasHoy.innerHTML = '';
+        viviendasManana.innerHTML = '';
+
+        registros.forEach(registro => {
+            const fechaDeEntrada = new Date(registro.fechaEntrada);
+            fechaDeEntrada.setHours(0, 0, 0, 0);
+            if (fechaDeEntrada.getTime() === hoy.getTime()) {
+                viviendasHoy.innerHTML += `<p>${registro.vivienda}</p>`;
+            } else if (fechaDeEntrada.getTime() === manana.getTime()) {
+                viviendasManana.innerHTML += `<p>${registro.vivienda}</p>`;
+            }
+        });
+    }
+
+    registros.forEach(agregarRegistroAlHistorial);
+    mostrarViviendasParaHoyYManana();
 });
+
 

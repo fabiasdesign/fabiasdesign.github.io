@@ -10,10 +10,17 @@
     <div class="container">
         <h1>Gestión de Viviendas Vacacionales</h1>
 
+        <h2>Viviendas para Hoy</h2>
+        <div id="viviendasHoy"></div>
+
+        <h2>Viviendas para Mañana</h2>
+        <div id="viviendasManana"></div>
+
         <form id="registroForm">
             <h2>Registro de Entrada/Salida</h2>
             <label for="vivienda">Vivienda:</label>
-            <select id="vivienda" name="vivienda">
+            <select id="vivienda" name="vivienda" required>
+                <option value="">Seleccione una vivienda...</option>
                 <option value="Villa Marítima">Villa Marítima</option>
                 <option value="Casa del Lago">Casa del Lago</option>
                 <option value="Apartamento Urbano">Apartamento Urbano</option>
@@ -49,17 +56,12 @@
         <div id="historialRegistros"></div>
 
         <button id="descargarCSV">Descargar CSV</button>
-
-        <h2>Viviendas para Hoy</h2>
-        <div id="viviendasHoy"></div>
-
-        <h2>Viviendas para Mañana</h2>
-        <div id="viviendasManana"></div>
     </div>
 
     <script src="vivienda.js"></script>
 </body>
 </html>
+
 
 
 
