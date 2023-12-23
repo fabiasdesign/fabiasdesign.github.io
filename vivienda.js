@@ -162,9 +162,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    btnDescargarCSV.addEventListener('click', descargarCSV);
-
-    
 
     btnDescargarCSV.addEventListener('click', descargarCSV);
 
