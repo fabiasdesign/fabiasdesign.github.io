@@ -5,6 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Viviendas Vacacionales</title>
     <link rel="stylesheet" href="vivienda.css">
+    <!-- Agrega Firebase a tu aplicación -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+    <script>
+        // Configuración de tu aplicación Firebase
+    var firebaseConfig = {
+        apiKey: "AlzaSyBCLQ5cRpxcsvM3V2G2KBbk6lcQ7GTKQchY", // Usando el apiKey de tu captura
+        authDomain: "vivienda-23bb7.firebaseapp.com", // Reemplaza con tu authDomain real
+        databaseURL: "https://vivienda-23bb7-default-rtdb.europe-west1.firebasedatabase.app", // Usando el databaseURL de tu captura
+        projectId: "vivienda-23bb7", // Usando el projectId de tu captura
+        storageBucket: "vivienda-23bb7.appspot.com", // Formato común de storageBucket
+        messagingSenderId: "your-messaging-sender-id", // Encuéntralo en la configuración de tu app
+        appId: "your-app-id", // Encuéntralo en la configuración de tu app
+        measurementId: "your-measurement-id" // Encuéntralo en la configuración de tu app si usas Google Analytics
+    };
+        // Inicializa Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
 </head>
 <body>
     <div class="container">
@@ -65,17 +83,15 @@
 
         <h2>Historial de Registros</h2>
         <div id="historialRegistros" class="historial-lista"></div>
-        
 
         <button id="btnDescargarCSV">Descargar CSV</button>
 
     </div>
 
-    <!-- El código de JavaScript deberá vincularse aquí -->
+    <!-- Vincula tu script de JavaScript que interactúa con Firebase -->
     <script src="vivienda.js"></script>
 </body>
 </html>
-
 
 
 
