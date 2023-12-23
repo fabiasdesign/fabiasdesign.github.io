@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "vivienda-23bb7",
     "public": ".",
     "ignore": [
       "firebase.json",
