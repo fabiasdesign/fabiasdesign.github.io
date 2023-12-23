@@ -5,24 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Viviendas Vacacionales</title>
     <link rel="stylesheet" href="vivienda.css">
-    <!-- Agrega Firebase a tu aplicación -->
-    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
-    <script>
-        // Configuración de tu aplicación Firebase
-    var firebaseConfig = {
-        apiKey: "AIzaSyBCLQ5cRpxscvM3V2G2Bkb6lcQ7GTKQchY",
-        authDomain: "vivienda-23bb7.firebaseapp.com",
-        databaseURL: "https://vivienda-23bb7-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "vivienda-23bb7",
-        storageBucket: "vivienda-23bb7.appspot.com",
-        messagingSenderId: "197562583828",
-        appId: "1:197562583828:web:e0d67fe48e8b6ba049d001",
-        measurementId: "G-Q045D3REDF"
-};
-        // Inicializa Firebase
-        firebase.initializeApp(firebaseConfig);
-    </script>
 </head>
 <body>
     <div class="container">
@@ -83,15 +65,17 @@
 
         <h2>Historial de Registros</h2>
         <div id="historialRegistros" class="historial-lista"></div>
+        
 
         <button id="btnDescargarCSV">Descargar CSV</button>
 
     </div>
 
-    <!-- Vincula tu script de JavaScript que interactúa con Firebase -->
+    <!-- El código de JavaScript deberá vincularse aquí -->
     <script src="vivienda.js"></script>
 </body>
 </html>
+
 
 
 
