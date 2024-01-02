@@ -10,6 +10,8 @@
     <div class="container">
         <h1>Gestión de Viviendas Vacacionales</h1>
 
+        <button id="btnDescargarCSV">Descargar CSV</button>
+        
         <h2>Viviendas para Hoy</h2>
         <div id="viviendasHoy"></div>
 
@@ -56,8 +58,12 @@
             <fieldset>
                 <legend>Extras</legend>
                 <label><input type="checkbox" name="extras" value="Agua"> Agua</label>
-                <label><input type="checkbox" name="extras" value="Vino"> Vino</label>
-                <label><input type="checkbox" name="extras" value="Papel"> Papel</label>
+                <label><input type="checkbox" name="extras" value="Vino Blanco"> Vino Blanco</label>
+                <label><input type="checkbox" name="extras" value="Vino Rosado"> Vino Rosado</label>
+                <label><input type="checkbox" name="extras" value="Vino Tinto"> Vino Tinto</label>
+                <label><input type="checkbox" name="extras" value="Caja de bombones"> Caja de bombones</label>
+                <label><input type="checkbox" name="extras" value="Bombones sueltos"> Bombones sueltos</label>
+                <label><input type="checkbox" name="extras" value="Kitkat"> Kitkat</label>
             </fieldset>
             <br>
             <button type="submit">Registrar</button>
@@ -66,19 +72,11 @@
         <h2>Historial de Registros</h2>
         <div id="historialRegistros" class="historial-lista"></div>
         
-
-        <button id="btnDescargarCSV">Descargar CSV</button>
-
+        <button id="btnDescargar2CSV">Descargar CSV</button>
     </div>
 
     <!-- El código de JavaScript deberá vincularse aquí -->
     <script src="vivienda.js"></script>
 </body>
 </html>
-
-
-
-
-
-
 
