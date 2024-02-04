@@ -6,20 +6,22 @@ document.addEventListener('DOMContentLoaded', function () {
     const viviendasManana = document.getElementById('viviendasManana');
     let registros = JSON.parse(localStorage.getItem('registrosViviendas')) || [];
 
-    function mostrarViviendas() {
-        const hoy = new Date();
-        const manana = new Date(hoy.getTime() + (24 * 60 * 60 * 1000));
-
-        viviendasHoy.innerHTML = '';
-        viviendasManana.innerHTML = '';
-
-        registros.forEach(registro => {
+        function mostrarViviendas() {
+            const hoy = new Date();
+            const manana = new Date(hoy.getTime() + (24 * 60 * 60 * 1000));
+            const pasadoManana = new Date(hoy.getTime() + (2 * 24 * 60 * 60 * 1000));
+        
+            viviendasHoy.innerHTML = '';
+            viviendasManana.innerHTML = '';
+            viviendasPasadoManana.innerHTML = '';
+        
+            registros.forEach(registro => {
             const entradaDate = new Date(registro.fechaEntrada);
             const salidaDate = new Date(registro.fechaSalida);
-
+        
             const registroDiv = document.createElement('div');
             registroDiv.classList.add('registro');
-
+        
             if (entradaDate.toDateString() === hoy.toDateString()) {
                 registroDiv.textContent = `${registro.vivienda} - Entrada: ${registro.fechaEntrada} ${registro.horaEntrada}`;
                 viviendasHoy.appendChild(registroDiv);
@@ -27,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 registroDiv.textContent = `${registro.vivienda} - Salida: ${registro.fechaSalida} ${registro.horaSalida}`;
                 viviendasHoy.appendChild(registroDiv);
             }
-
+        
             if (entradaDate.toDateString() === manana.toDateString()) {
                 registroDiv.textContent = `${registro.vivienda} - Entrada: ${registro.fechaEntrada} ${registro.horaEntrada}`;
                 viviendasManana.appendChild(registroDiv);
@@ -35,8 +37,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 registroDiv.textContent = `${registro.vivienda} - Salida: ${registro.fechaSalida} ${registro.horaSalida}`;
                 viviendasManana.appendChild(registroDiv);
             }
-        });
-    }
+        
+            if (entradaDate.toDateString() === pasadoManana.toDateString()) {
+                registroDiv.textContent = `${registro.vivienda} - Entrada: ${registro.fechaEntrada} ${registro.horaEntrada}`;
+                viviendasPasadoManana.appendChild(registroDiv);
+            } else if (salidaDate.toDateString() === pasadoManana.toDateString()) {
+                registroDiv.textContent = `${registro.vivienda} - Salida: ${registro.fechaSalida} ${registro.horaSalida}`;
+                viviendasPasadoManana.appendChild(registroDiv);
+            }
+            });
+        }
+        
 
     function actualizarUI() {
         mostrarViviendas();
